@@ -38,6 +38,30 @@ ref.addEventListener('exit', function(event) { console.log(event.type); } );
                 $("#carga").h 
                 alert("chao");
             }
+            function checkConnection() {
+               var networkState = navigator.network.connection.type;
+               var states = {};
+               states[Connection.UNKNOWN]  = 'Unknown connection';
+               states[Connection.ETHERNET] = 'Ethernet connection';
+               states[Connection.WIFI]     = 'WiFi connection';
+               states[Connection.CELL_2G]  = 'Cell 2G connection';
+               states[Connection.CELL_3G]  = 'Cell 3G connection';
+               states[Connection.CELL_4G]  = 'Cell 4G connection';
+               states[Connection.NONE]     = 'No network connection';
+              
+               return networkState;
+              
+           }
+            
+            function onDeviceReady() {
+               var networkState = checkConnection();
+            /* load local files if there is not network connection */
+                          if (networkState == Connection.NONE) {
+                              window.location="local/index.html"; 
+                          } else {
+                       window.location="http://your.website";
+                          }
+             }
         </script>
         <title>Hello World</title>
     </head>
@@ -52,6 +76,7 @@ ref.addEventListener('exit', function(event) { console.log(event.type); } );
             <div id="carga" style="width: 200px; height: 200px; background-color: red;">
                 
             </div>
+            <button type="button" onclick="onDeviceReady()">Load screen 2</button>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
