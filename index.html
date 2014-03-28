@@ -19,7 +19,7 @@
 -->
 <html>
     <head>
-        <meta charset="utf-8" />
+       <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
@@ -83,8 +83,11 @@
         $.support.cors                 = true;
         $.mobile.allowCrossDomainPages = true;
         $.mobile.pushStateEnabled      = false;
+        $.("[Data-role = header]") fixedtoolbar ({updatePagePadding: false}); 
+        $.("[Data-role = pie de página]") fixedtoolbar ({updatePagePadding: false}); 
       });
     </script>
+
     <script type="text/javascript">
         function obtenerCosito()
         {
@@ -208,8 +211,85 @@
             })
             
         }
-    </script>
         
+        function descargar(archivo_origen)
+        {
+            var descarga = new fileTransfer();  // definimos un nuevo fileTransfer
+            descarga.download( archivo_origen,  "file://sdcard", 
+            succes
+            , fail);  //Modo de uso
+        }
+    </script>
+    <script>
+        function prueba(latS1,lngS1)
+        {
+            //Posicion Original
+            /*var latS1=4.531309;
+            var lngS1=-75.672440;*/
+            
+            //Fundadores 4.544857, -75.660670
+            var latS2=4.544857;
+            var lngS2=-75.660670;
+            
+            //El bosque 4.553221, -75.658192
+            var latS3=4.553221;
+            var lngS3=-75.658192;
+            
+            //Edif coomeva 4.554782, -75.656075
+            var latS4=4.554782;
+            var lngS4=-75.656075;
+            
+            var dist1 = distancia(latS1,lngS1,latS2,lngS2);
+            var dist2 = distancia(latS1,lngS1,latS3,lngS3);
+            var dist3 = distancia(latS1,lngS1,latS4,lngS4);
+            
+            
+            var disM=dist1;
+            var sede="Fundadores";
+            
+            if(dist2<dist1 && dist2<dist3){disM=dist2; sede="Bosque";}
+            if(dist3<dist1 && dist3<dist2){disM=dist3; sede="Coomeva";}
+           
+            //alert(sede);
+            return sede;
+            
+           
+        }
+        
+        function distancia(latS1,lngS1,latS2,lngS2)
+        {
+            var unit="K";
+         
+            var radlat1 = Math.PI * latS1/180
+        	var radlat2 = Math.PI * latS2/180
+        	var radlon1 = Math.PI * lngS1/180
+        	var radlon2 = Math.PI * lngS2/180
+        	var theta = lngS1-lngS2
+        	var radtheta = Math.PI * theta/180
+        	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        	dist = Math.acos(dist)
+        	dist = dist * 180/Math.PI
+        	dist = dist * 60 * 1.1515
+        	if (unit=="K") { dist = dist * 1.609344 }
+        	if (unit=="N") { dist = dist * 0.8684 }
+
+            return dist;
+        }
+        navigator.geolocation.getCurrentPosition (function (pos)
+        {        
+            var lat = pos.coords.latitude;
+            var lng = pos.coords.longitude;
+            var sede;
+            
+            sede = prueba(lat,lng);
+            
+            alert (lat+" - "+lng);
+            
+            $("#lat").text ("La sede mas cercana es: "+sede);
+
+
+        });
+        </script>    
         
     </head>
     <body>
@@ -226,12 +306,9 @@
                         <div class="ui-block-b" style="margin-top: -250px; margin-left:25%; z-index:10; position:absolute; text-transform:none">
                             
                                 <label for="basic" >Usuario</label>
-                                <input type="text" name="usuario" id="usuario" value=""  />
+                                <input type="text" name="usuario" id="usuario" value=""  required/>
                                 <label for="basic">Clave</label>
-                                <input type="password" name="contrasena" id="contrasena" value=""  />
-                                <!--
-<button class="ui-shadow ui-btn ui-corner-all" data-icon="home" onclick="cargarPrueba();return false;">Consultar</button>
--->
+                                <input type="password" name="contrasena" id="contrasena" value=""  required/>
                                 <a href="#page777777" data-role="button" onclick="ingresar();return false;">Ingresar</a>
                             <br/>
                             <br/>
@@ -254,14 +331,14 @@
                     <ul>
                     
                         <li>
-                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
+                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
                         </li>
-                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
+                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
                         <li>
-                            <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
+                            <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
                         </li>
                         <li>
-                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
+                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
                         </li>
                     </ul>
                 </div>
@@ -329,14 +406,14 @@
            <div class="botonera" data-role="navbar"  data-tap-toggle="false">
                     <ul>
                         <li>
-                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
+                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b" data-ajax="false"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
                         </li>
-                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
+                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
                         <li>
-                            <a data-role="button" data-theme="b"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
+                            <a data-role="button" data-theme="b" data-ajax="false"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
                         </li>
                         <li>
-                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
+                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
                         </li>
                     </ul>
                 </div>
@@ -369,17 +446,17 @@
            <div class="botonera" data-role="navbar"  data-position="fixed" data-fullscreen="true">
                     <ul>
                         <li>
-                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
+                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
                         </li>
                         <li>
-							<a href="#page1" data-role="button" data-transition="flip" data-theme="b"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
+							<a href="#page1" data-role="button" data-transition="flip" data-theme="b" data-ajax="false"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
                         </li>
                         
                         <li>
-                            <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
+                            <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
                         </li>
                         <li>
-                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
+                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/ubicacion.png" width="112" height="122" alt=""/></a>
                         </li>
                     </ul>
                 </div>
@@ -424,14 +501,14 @@ Bodanski que el laboratorio debe especificar con sus valores de referencia. </p>
            <div class="botonera" data-role="navbar"  data-position="fixed" data-fullscreen="true">
                     <ul>
                         <li>
-                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
+                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
                         </li>
-                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
+                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
                         <li>
-                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
+                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b" data-ajax="false"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
                         </li>
                         <li>
-                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b"><img src="img/ubicacion.png" alt="" width="112" height="122"/></a>
+                            <a href="#ubicacion" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/ubicacion.png" alt="" width="112" height="122"/></a>
                         </li>
                     </ul>
                 </div>
@@ -446,7 +523,11 @@ Bodanski que el laboratorio debe especificar con sus valores de referencia. </p>
                     <img src="img/logo_v2.png" width="260" style="display:block; margin:0 auto">
                 </div>
             <div data-role="content">
-                
+              
+              <span id="lat" style="color: white;"></span> <br />
+              <div id="mapa">
+              
+              </div>
               <a data-ajax="false" href="tel:18005551234" id="cell" data-icon="custom" data-theme="b" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-iconpos="top" data-inline="true" class="ui-btn ui-btn-inline ui-btn-icon-top ui-btn-up-b"><span class="ui-btn-inner"><span class="ui-btn-text">Call Us</span><span class="ui-icon ui-icon-custom ui-icon-shadow">&nbsp;</span></span></a>
               
               <li class="ui-block-b"><a href="mailto:email@somewhere.com" class="iconsub-white-Envelope ui-btn ui-btn-icon-top ui-btn-up-a" data-icon="custom" data-theme="a"><span class="ui-btn-inner"><span class="ui-btn-text">Email</span><span class="ui-icon ui-icon-custom ui-icon-shadow"></span></span></a></li>
@@ -470,14 +551,14 @@ Bodanski que el laboratorio debe especificar con sus valores de referencia. </p>
            <div class="botonera" data-role="navbar"  data-position="fixed" data-fullscreen="true">
                     <ul>
                         <li>
-                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
+                            <a href="#servicios" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/servicios.png" alt="" width="112" height="122"/></a>
                         </li>
-                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
+                        <li><a href="#nosotros" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/nosotros.png" width="112" height="122" alt=""/></a></li>
                         <li>
-                           <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
+                           <a href="#pruebas" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/pruebas.png" width="112" height="122" alt=""/></a>
                         </li>
                         <li>
-                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
+                            <a href="#page1" data-role="button" data-transition="flip" data-theme="b" data-ajax="false"><img src="img/inicio.png" alt="" width="112" height="122"/></a>
                         </li>
                     </ul>
                 </div>
@@ -527,7 +608,7 @@ Bodanski que el laboratorio debe especificar con sus valores de referencia. </p>
             
             <div class="botonera" data-role="navbar">
                     <ul>
-                        <li><a href="#page777777" data-role="button" data-transition="pop" data-theme="b"><img src="img/inicioPPAL.svg" height="50px" alt="" style="text-align:left"/></a></li>
+                        <li><a href="#page777777" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/inicioPPAL.svg" height="50px" alt="" style="text-align:left"/></a></li>
                     </ul>
                 </div>
            
@@ -561,8 +642,8 @@ Bodanski que el laboratorio debe especificar con sus valores de referencia. </p>
             <div data-role="footer" data-position="fixed">
                 <div class="botonera" data-role="navbar">
                     <ul>
-                        <li><a data-role="button" href="#buscador"><img src="img/busca_ava.svg" height="50px" alt=""/></a></li>
-                        <li><a href="#page777777" data-role="button" data-transition="pop" data-theme="b"><img src="img/inicioPPAL.svg" height="50px" alt="" style="text-align:left"/></a></li>
+                        <li><a data-role="button" href="#buscador" data-ajax="false"><img src="img/busca_ava.svg" height="50px" alt=""/></a></li>
+                        <li><a href="#page777777" data-role="button" data-transition="pop" data-theme="b" data-ajax="false"><img src="img/inicioPPAL.svg" height="50px" alt="" style="text-align:left"/></a></li>
                     </ul>
                 </div>
             </div>
