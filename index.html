@@ -22,14 +22,37 @@
        <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta content="width=device-width, minimum-scale=1, maximum-scale=1" name="viewport">
-
-        <!--<script src="js/jquery-1.6.4.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="js/jquery-1.6.4.js"></script>
         <script src="js/jquery.mobile-1.1.0.js"></script>-->
-        <script src="css/borrar/jquery-1.8.2.min.js"></script>
-        <script src="css/borrar/jquery.mobile-1.2.0.min.js"></script>
+        
         <link href="css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
         <link href="css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
+
+
+<!--prueba-->
+<script>
+  var metas = document.getElementsByTagName('meta');
+  var i;
+  if (navigator.userAgent.match(/iPhone/i)) {
+    for (i=0; i<metas.length; i++) {
+      if (metas[i].name == "viewport") {
+        metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+      }
+    }
+    document.addEventListener("gesturestart", gestureStart, false);
+  }
+  function gestureStart() {
+    for (i=0; i<metas.length; i++) {
+      if (metas[i].name == "viewport") {
+        metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+      }
+    }
+  }
+</script>
+<!--prueba-->
+
 
 <script>
   // all dialog buttons should close their parent dialog
