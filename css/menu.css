@@ -95,7 +95,7 @@ padding: 10px;
   background-size:cover;  
 
 }
-#servicios, #ubicacion, #nosotros, {
+#servicios, #ubicacion, #nosotros {
   background: url(../img/background.jpg);
   background-repeat:no-repeat;
   background-position:center center;
