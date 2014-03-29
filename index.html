@@ -27,18 +27,86 @@
         <script src="js/jquery-1.6.4.js"></script>
         <script src="js/jquery.mobile-1.1.0.js"></script>
         
-                
+        
+        
         <link href="css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
         <link href="css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
 
+
+<!--prueba-->
+
+
+<script>
+  var metas = document.getElementsByTagName('meta');
+  var i;
+  if (navigator.userAgent.match(/iPhone/i)) {
+    for (i=0; i<metas.length; i++) {
+      if (metas[i].name == "viewport") {
+        metas[i].content = "width=device-width, minimum-scale=1.0, maximum-scale=1.0";
+      }
+    }
+    document.addEventListener("gesturestart", gestureStart, false);
+  }
+  function gestureStart() {
+    for (i=0; i<metas.length; i++) {
+      if (metas[i].name == "viewport") {
+        metas[i].content = "width=device-width, minimum-scale=0.25, maximum-scale=1.6";
+      }
+    }
+  }
+</script>
+<!--prueba-->
+
+
+<script>
+  // all dialog buttons should close their parent dialog
+  $(".ui-dialog button").live("click", function() {    
+    $("[data-role='dialog']").dialog("close");    
+  });
+    
+</script>
+        
         <link href="css/menu.css" rel="stylesheet">
-        		
+        <!-- Fin slide icons-->
+		
+        
+        <link href="css/photoswipe.css" type="text/css" rel="stylesheet" />
+        <style type="text/css">
+		div.gallery-row:after { clear: both; content: "."; display: block; height: 0; visibility: hidden; }
+		div.gallery-item { float: left; width: 33.333333%; }
+		div.gallery-item a { display: block; margin: 5px; border: 1px solid #3c3c3c; }
+		div.gallery-item img { display: block; width: 100%; height: auto; }
+		#ubicacion .ui-content, #Gallery2 .ui-content { overflow: hidden; }
+		</style>
+
+		<!--
+
+		<script type="text/javascript" src="file:///C|/wamp/www/1.0.11/lib/jquery-1.6.1.min.js"></script>
+        <script type="text/javascript" src="file:///C|/wamp/www/1.0.11/lib/jquery.mobile-1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+        
+-->
 		<script type="text/javascript" src="js/simple-inheritance.min.js"></script>
 		<script type="text/javascript" src="js/jquery.animate-enhanced.min.js"></script>
-	<!--	<script type="text/javascript" src="js/code-photoswipe-jQuery-1.0.11.js"></script>-->
+		<script type="text/javascript" src="js/code-photoswipe-jQuery-1.0.11.js"></script>
 	
-    
-    
+    	<script type="text/javascript">
+		/*
+			This example shows how to set up PhotoSwipe using jQuery Mobile.
+		*/
+		
+		$(document).ready(function(){
+			
+			$('div.gallery-page').live('pageshow', function(e){
+					
+				// Re-initialize with the photos for the current page
+				$("div.gallery a", e.target).photoSwipe();
+				return true;
+				
+			})
+				
+		});
+	
+	</script>
     
     <script type="text/javascript" charset="utf-8">
       $( document ).bind( "mobileinit", function() {
@@ -50,13 +118,12 @@
       });
     </script>
 
-$(document).bind("mobileinit", function(){
- $.extend(  $.mobile , {
- defaultPageTransition: 'none' 
-});
 
- $.mobile.defaultPageTransition = 'none';
- $.mobile.defaultDialogTransition = 'none';
+$(document).bind("mobileinit", function()
+{
+    $.mobile.defaultPageTransition = "fade"; //default, see styles
+    $.mobile.transitionFallbacks='none';
+    $.mobile.useFastClick = false; //300ms or double tap needed
 });
 
 
