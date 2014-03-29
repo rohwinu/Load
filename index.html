@@ -46,10 +46,17 @@
         $.mobile.allowCrossDomainPages = true;
         $.mobile.pushStateEnabled      = false;
         $.("[Data-role = header]") fixedtoolbar ({updatePagePadding: false}); 
-        $.("[Data-role = pie de página]") fixedtoolbar ({updatePagePadding: false}); 
+        $.("[Data-role = pie de página]") fixedtoolbar ({updatePagePadding: false});
+       
+        $.extend(  $.mobile , {
+ defaultPageTransition: 'none' 
+});
+
+ $.mobile.defaultPageTransition = 'none';
+ $.mobile.defaultDialogTransition = 'none';
+         
       });
     </script>
-
 
     <script type="text/javascript">
         function obtenerCosito()
