@@ -1,3 +1,19 @@
+.header {
+    position : fixed !important;
+    z-index  : 10 !important;
+    top      : 0 !important;
+    width    : 100% !important;
+}
+.content {
+    padding : 55px 15px !important;
+}
+.footer {
+    position : fixed !important;
+    z-index  : 10 !important;
+    bottom   : 0 !important;
+    width    : 100% !important;
+}
+
 body {
 margin: 0;
 font-size:16px;
