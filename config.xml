@@ -58,4 +58,6 @@
     <access origin="http://gatolocostudios.com/MobileCDC/*" />
     <access origin="http://cdc.gatolocostudios.com/VersionMobile/*" />
     <access origin="http://cdc.gatolocostudios.com/*" />
+    <access origin="https://docs.google.com/*" />
+    <access origin="https://docs.google.com/viewer*" />
 </widget>
