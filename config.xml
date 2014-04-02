@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ejemplo2.cdc2" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>cdc</name>
+    <name>CDC Laboratorio</name>
     <description>
         Aplicacion para la manipulaci�n de los resultados de examenes.
     </description>
