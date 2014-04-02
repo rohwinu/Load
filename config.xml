@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.CDCLaboratorio" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.ejemplo.cdc" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>CDC Laboratorio</name>
     <description>
-        Aplicacion para la manipulación de los resultados de examenes.
+        Aplicacion para la manipulaciï¿½n de los resultados de examenes.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
+    <author email="support@prueba.com" href="http://prueba.com">
         Fussion Creativa
     </author>
     <feature name="http://api.phonegap.com/1.0/device" />
